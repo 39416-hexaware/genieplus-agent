@@ -24,6 +24,7 @@ app.get("/api", function(req,res){
 
 app.post("/api",function(req,res){
   var body = req.body;
+  console.log(body);
 res.send('Yay!');
 //   calculator.Concat(body,function(result){
 //     res.send(result);
