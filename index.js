@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var apiai = require('apiai');
+var http = require('http');
+// var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
 
@@ -84,7 +85,24 @@ function newIncidentIntent(req, res) {
 function generateSRId(req, res) {
   console.log(req.body.result + '   ' + 'from Webhook');
   console.log(req.body.result.contexts[0].parameters);
-  
+
+
+  postServiceCall(req, res, 'post');
+}
+
+function postServiceCall(req, res, type) {
+  var header = {
+    'Authorization': 'Basic MzMyMzg6YWJjMTIz',
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+    'Cache-Control': 'no-cache'
+  };
+  var options = {
+    host: 'https://dev18442.service-now.com/api/now/table/incident',
+    method: 'POST',
+    header: header
+  };
+
   let empid = req.body.result.contexts[0].parameters.empid;
   let department = req.body.result.contexts[0].parameters.department;
   let location = req.body.result.contexts[0].parameters.location;
@@ -93,11 +111,35 @@ function generateSRId(req, res) {
   let buidling = req.body.result.contexts[0].parameters.buidling;
   let desc = req.body.result.contexts[0].parameters.description;
 
-  response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({
-    "speech": response, "displayText": response
-  }));
+  var req = http.request(options, function (res) {
+    res.setEncoding('utf-8');
+    res.body = {
+      "short_description": desc,
+      "urgency": "2",
+      "impact": "2",
+      "caller_id": empid
+    };
+    var responseString = '';
+
+    res.on('data', function (data) {
+      responseString += data;
+    });
+
+    res.on('end', function () {
+      console.log(responseString);
+      console.log('mubash');
+      var responseObject = JSON.parse(responseString);
+      success(responseObject);
+      response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({
+        "speech": response, "displayText": response
+      }));
+    });
+  });
+
+  req.write(dataString);
+  req.end();
 }
 
 console.log("Server Running at Port : " + port);
