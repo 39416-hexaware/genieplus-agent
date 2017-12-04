@@ -43,7 +43,7 @@ if(req.body.result.parameters["empid"] == '') {
   res.send(JSON.stringify({ "speech": response, "displayText": response 
   }));
 }
-else if(!isNaN(req.body.result.parameters["empid"])) {
+else if(isNaN(req.body.result.parameters["empid"])) {
   response = "Incorrect format! Please enter employee Id as number!"
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
