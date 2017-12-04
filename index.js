@@ -79,7 +79,7 @@ else {
 }
 
 function generateSRId(req,res) {
-  console.log(req.body.result);
+  // console.log(req.body.result);
   console.log(req.body.result.parameters);
 
   response = "Hi #new-incident.empid, your incident has been created with the following details: Department - #new-incident.department, Location - #new-incident.location, Project - #new-incident.project, Category - $category, Building - $building, Description - $description. Thank you!!"
