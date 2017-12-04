@@ -36,7 +36,7 @@ app.post("/api",function(req,res){
 
 function newIncidentIntent(req, res) {
 console.log(req.body.result.parameters["empid"] + "Mubash");
-console.log(isNaN(req.body.result.parameters["empid"]) + "Mubash");
+console.log(typeof(req.body.result.parameters["empid"]));
 if(req.body.result.parameters["empid"] == '') {
   response = "Please provide your employee Id!"
   res.setHeader('Content-Type', 'application/json');
