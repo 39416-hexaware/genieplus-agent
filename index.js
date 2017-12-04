@@ -102,6 +102,13 @@ function postServiceCall(req, res, type) {
     method: 'POST',
     header: header
   };
+  var data = {
+    "short_description": desc,
+    "urgency": "2",
+    "impact": "2",
+    "caller_id": empid
+  };
+  var dataString = JSON.stringify(data);
 
   let empid = req.body.result.contexts[0].parameters.empid;
   let department = req.body.result.contexts[0].parameters.department;
@@ -111,14 +118,8 @@ function postServiceCall(req, res, type) {
   let buidling = req.body.result.contexts[0].parameters.buidling;
   let desc = req.body.result.contexts[0].parameters.description;
 
-  var req = http.request(options, function (res) {
+  var request = http.request(options, function (res) {
     res.setEncoding('utf-8');
-    res.body = {
-      "short_description": desc,
-      "urgency": "2",
-      "impact": "2",
-      "caller_id": empid
-    };
     var responseString = '';
 
     res.on('data', function (data) {
@@ -138,8 +139,8 @@ function postServiceCall(req, res, type) {
     });
   });
 
-  req.write(dataString);
-  req.end();
+  request.write(dataString);
+  request.end();
 }
 
 console.log("Server Running at Port : " + port);
