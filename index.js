@@ -11,56 +11,59 @@ var port = process.env.PORT || 3000;
 //Assign port
 app.use(express.static(__dirname));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended : true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 //Configuring express app behaviour
 
-app.get("/",function(req,res){
+app.get("/", function (req, res) {
   res.sendFile(__dirname + "/index.html");
 })
 
-app.get("/api", function(req,res){
+app.get("/api", function (req, res) {
   res.send("App works");
 })
 //GET Endpoint
 
-app.post("/api",function(req,res){
+app.post("/api", function (req, res) {
   var body = req.body;
   console.log(JSON.stringify(body));
   // if(req.body.originalRequest.source === 'facebook') {
-    if(req.body.result.action === 'input.newincident') {
-      newIncidentIntent(req,res);
-    }
-    else if (req.body.result.action === 'input.system.incident2') {
-      generateSRId(req,res);
-    }
+  if (req.body.result.action === 'input.newincident') {
+    newIncidentIntent(req, res);
+  }
+  else if (req.body.result.action === 'input.system.incident2') {
+    generateSRId(req, res);
+  }
   // }
 });
 //POST Call Endpoint
 
 function newIncidentIntent(req, res) {
-console.log(req.body.result.parameters["empid"] + "Mubash");
-console.log(typeof(req.body.result.parameters["empid"]));
-if(req.body.result.parameters["empid"] == '') {
-  response = "Please provide your employee Id!"
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ "speech": response, "displayText": response 
-  }));
-}
-else if(isNaN(req.body.result.parameters["empid"])) {
-  response = "Incorrect format! Please enter employee Id as number!"
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ "speech": response, "displayText": response 
-  }));
-}
-else if(req.body.result.parameters["empid"].length > 5) {
-  response = "Employee Id not found in the database! Please enter the correct number!"
-  res.setHeader('Content-Type', 'application/json');
-  res.send(JSON.stringify({ "speech": response, "displayText": response 
-  }));
-}
-else {
-  // response = {messages: {"type":2,"platform":"facebook"}};
-}
+  console.log(req.body.result.parameters["empid"] + "Mubash");
+  console.log(typeof (req.body.result.parameters["empid"]));
+  if (req.body.result.parameters["empid"] == '') {
+    response = "Please provide your employee Id!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      "speech": response, "displayText": response
+    }));
+  }
+  else if (isNaN(req.body.result.parameters["empid"])) {
+    response = "Incorrect format! Please enter employee Id as number!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      "speech": response, "displayText": response
+    }));
+  }
+  else if (req.body.result.parameters["empid"].length > 5) {
+    response = "Employee Id not found in the database! Please enter the correct number!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      "speech": response, "displayText": response
+    }));
+  }
+  else {
+    // response = {messages: {"type":2,"platform":"facebook"}};
+  }
 
   // var empid = req.body.result.parameters["empid"];
 
@@ -78,15 +81,25 @@ else {
   // }
 }
 
-function generateSRId(req,res) {
+function generateSRId(req, res) {
   console.log(req.body.result + '   ' + 'from Webhook');
+  console.log(req.body.result.contexts[0].parameters);
+  
+  let empid = req.body.result.contexts[0].parameters.empid;
+  let department = req.body.result.contexts[0].parameters.department;
+  let location = req.body.result.contexts[0].parameters.location;
+  let project = req.body.result.contexts[0].parameters.project;
+  let category = req.body.result.contexts[0].parameters.category;
+  let buidling = req.body.result.contexts[0].parameters.buidling;
+  let desc = req.body.result.contexts[0].parameters.description;
 
-  // response = "Hi #new-incident.empid, your incident has been created with the following details: Department - #new-incident.department, Location - #new-incident.location, Project - #new-incident.project, Category - $category, Building - $building, Description - $description. Thank you!!"
-  // res.setHeader('Content-Type', 'application/json');
-  // res.send(JSON.stringify({ "speech": response, "displayText": response 
-  // }));
+  response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({
+    "speech": response, "displayText": response
+  }));
 }
 
-console.log("Server Running at Port : "+port);
+console.log("Server Running at Port : " + port);
 
 app.listen(port);
