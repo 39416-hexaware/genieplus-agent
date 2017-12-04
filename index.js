@@ -27,7 +27,7 @@ app.post("/api",function(req,res){
   var body = req.body;
   console.log(body);
 // res.send('Yay!');
-  response = "This is a sample response from your webhook!" //Default response from the webhook to show it's working
+  response = "This is a sample response by Mubash!" //Default response from the webhook to show it's working
 
 
   res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
