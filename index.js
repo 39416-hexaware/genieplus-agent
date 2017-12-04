@@ -35,12 +35,25 @@ app.post("/api",function(req,res){
 //POST Call Endpoint
 
 function newIncidentIntent(req, res) {
-
+console.log(req.body.result.parameters["empid"]);
+if(req.body.result.parameters["empid"] == undefined) {
   response = "Please provide your employee Id!"
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
   }));
-
+}
+else if(typeof req.body.result.parameters["empid"] != "number") {
+  response = "Incorrect format! Please enter employee Id as number!"
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ "speech": response, "displayText": response 
+  }));
+}
+else if(req.body.result.parameters["empid"].length > 5) {
+  response = "Employee Id not found in the database! Please enter the correct number!"
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ "speech": response, "displayText": response 
+  }));
+}
 
   // var empid = req.body.result.parameters["empid"];
 
