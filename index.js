@@ -36,7 +36,7 @@ app.post("/api",function(req,res){
 
 function newIncidentIntent(req, res) {
 console.log(req.body.result.parameters["empid"]);
-if(req.body.result.parameters["empid"] == undefined) {
+if(req.body.result.parameters["empid"] == '') {
   response = "Please provide your employee Id!"
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
