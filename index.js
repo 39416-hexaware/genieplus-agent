@@ -91,6 +91,13 @@ function generateSRId(req, res) {
 }
 
 function postServiceCall(req, res, type) {
+  let empid = req.body.result.contexts[0].parameters.empid;
+  let department = req.body.result.contexts[0].parameters.department;
+  let location = req.body.result.contexts[0].parameters.location;
+  let project = req.body.result.contexts[0].parameters.project;
+  let category = req.body.result.contexts[0].parameters.category;
+  let buidling = req.body.result.contexts[0].parameters.buidling;
+  let desc = req.body.result.contexts[0].parameters.description;
   var header = {
     'Authorization': 'Basic MzMyMzg6YWJjMTIz',
     'Content-Type': 'application/json',
@@ -109,14 +116,6 @@ function postServiceCall(req, res, type) {
     "caller_id": empid
   };
   var dataString = JSON.stringify(data);
-
-  let empid = req.body.result.contexts[0].parameters.empid;
-  let department = req.body.result.contexts[0].parameters.department;
-  let location = req.body.result.contexts[0].parameters.location;
-  let project = req.body.result.contexts[0].parameters.project;
-  let category = req.body.result.contexts[0].parameters.category;
-  let buidling = req.body.result.contexts[0].parameters.buidling;
-  let desc = req.body.result.contexts[0].parameters.description;
 
   var request = http.request(options, function (res) {
     res.setEncoding('utf-8');
