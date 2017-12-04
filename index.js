@@ -35,14 +35,15 @@ app.post("/api",function(req,res){
 //POST Call Endpoint
 
 function newIncidentIntent(req, res) {
-console.log(req.body.result.parameters["empid"]);
+console.log(req.body.result.parameters["empid"] + "Mubash");
+console.log(isNaN(req.body.result.parameters["empid"]) + "Mubash");
 if(req.body.result.parameters["empid"] == '') {
   response = "Please provide your employee Id!"
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
   }));
 }
-else if(typeof req.body.result.parameters["empid"] != "number") {
+else if(!isNaN(req.body.result.parameters["empid"])) {
   response = "Incorrect format! Please enter employee Id as number!"
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
@@ -53,6 +54,9 @@ else if(req.body.result.parameters["empid"].length > 5) {
   res.setHeader('Content-Type', 'application/json');
   res.send(JSON.stringify({ "speech": response, "displayText": response 
   }));
+}
+else {
+  response = {messages: {"type":2,"platform":"facebook"}};
 }
 
   // var empid = req.body.result.parameters["empid"];
