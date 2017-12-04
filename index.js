@@ -25,7 +25,7 @@ app.get("/api", function(req,res){
 
 app.post("/api",function(req,res){
   var body = req.body;
-  console.log(body);
+  console.log(JSON.stringify(body));
 // res.send('Yay!');
   response = "This is a sample response by Mubash!" //Default response from the webhook to show it's working
 
