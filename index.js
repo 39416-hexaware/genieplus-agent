@@ -30,6 +30,9 @@ app.post("/api",function(req,res){
     if(req.body.result.action === 'input.newincident') {
       newIncidentIntent(req,res);
     }
+    else if (req.body.result.action === 'input.system.incident2') {
+      generateSRId(req,res);
+    }
   // }
 });
 //POST Call Endpoint
@@ -56,7 +59,7 @@ else if(req.body.result.parameters["empid"].length > 5) {
   }));
 }
 else {
-  response = {messages: {"type":2,"platform":"facebook"}};
+  // response = {messages: {"type":2,"platform":"facebook"}};
 }
 
   // var empid = req.body.result.parameters["empid"];
@@ -73,6 +76,10 @@ else {
   //   res.send(JSON.stringify({ "speech": response, "displayText": response 
   //   }));
   // }
+}
+
+function generateSRId(req,res) {
+
 }
 
 console.log("Server Running at Port : "+port);
