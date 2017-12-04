@@ -115,17 +115,17 @@ function postServiceCall(req, res, type) {
     "impact": "2",
     "caller_id": empid
   };
-  var dataString = JSON.stringify(data);
+  var objJSON = JSON.stringify(data);
 
-  var request = http.request(options, function (res) {
-    res.setEncoding('utf-8');
+  var request = http.request(options, function (result) {
+    result.setEncoding('utf-8');
     var responseString = '';
 
-    res.on('data', function (data) {
+    result.on('data', function (data) {
       responseString += data;
     });
 
-    res.on('end', function () {
+    result.on('end', function () {
       console.log(responseString);
       console.log('mubash');
       var responseObject = JSON.parse(responseString);
@@ -138,7 +138,7 @@ function postServiceCall(req, res, type) {
     });
   });
 
-  request.write(dataString);
+  request.write(objJSON);
   request.end();
 }
 
