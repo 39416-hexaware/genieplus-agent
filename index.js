@@ -26,20 +26,30 @@ app.get("/api", function(req,res){
 app.post("/api",function(req,res){
   var body = req.body;
   console.log(JSON.stringify(body));
-// res.send('Yay!');
-  response = "This is a sample response by Mubash!" //Default response from the webhook to show it's working
-
-
-  res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
-  res.send(JSON.stringify({ "speech": response, "displayText": response 
-  //"speech" is the spoken version of the response, "displayText" is the visual version
-  }));
-
-//   calculator.Concat(body,function(result){
-//     res.send(result);
-//   })//Callback Feature for Synced Calls
+  if(req.body.originalRequest.source === 'facebook') {
+    if(req.body.result.action === 'input.newincident') {
+      newIncidentIntent(req,res);
+    }
+  }
 })
 //POST Call Endpoint
+
+function newIncidentIntent(req, res) {
+  var empid = req.body.result.parameters["empid"];
+
+  if (empid === '39416') {
+    response = "Employee Id available!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ "speech": response, "displayText": response 
+    }));
+  }
+  else {
+    response = "Employee Id does not exist!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({ "speech": response, "displayText": response 
+    }));
+  }
+}
 
 console.log("Server Running at Port : "+port);
 
