@@ -138,7 +138,7 @@ function postServiceCall(req, res, type) {
     });
   });
 
-  request.write(objJSON);
+  request.send(objJSON);
   request.end();
 }
 
