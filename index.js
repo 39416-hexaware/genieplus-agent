@@ -1,5 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
+var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
 
@@ -25,7 +26,15 @@ app.get("/api", function(req,res){
 app.post("/api",function(req,res){
   var body = req.body;
   console.log(body);
-res.send('Yay!');
+// res.send('Yay!');
+  response = "This is a sample response from your webhook!" //Default response from the webhook to show it's working
+
+
+  res.setHeader('Content-Type', 'application/json'); //Requires application/json MIME type
+  res.send(JSON.stringify({ "speech": response, "displayText": response 
+  //"speech" is the spoken version of the response, "displayText" is the visual version
+  }));
+
 //   calculator.Concat(body,function(result){
 //     res.send(result);
 //   })//Callback Feature for Synced Calls
