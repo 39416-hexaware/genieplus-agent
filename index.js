@@ -79,7 +79,13 @@ else {
 }
 
 function generateSRId(req,res) {
+  console.log(req.body.result);
+  console.log(req.body.result.parameters);
 
+  response = "Hi #new-incident.empid, your incident has been created with the following details: Department - #new-incident.department, Location - #new-incident.location, Project - #new-incident.project, Category - $category, Building - $building, Description - $description. Thank you!!"
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ "speech": response, "displayText": response 
+  }));
 }
 
 console.log("Server Running at Port : "+port);
