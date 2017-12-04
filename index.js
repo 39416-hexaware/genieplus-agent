@@ -26,29 +26,36 @@ app.get("/api", function(req,res){
 app.post("/api",function(req,res){
   var body = req.body;
   console.log(JSON.stringify(body));
-  if(req.body.originalRequest.source === 'facebook') {
+  // if(req.body.originalRequest.source === 'facebook') {
     if(req.body.result.action === 'input.newincident') {
       newIncidentIntent(req,res);
     }
-  }
+  // }
 });
 //POST Call Endpoint
 
 function newIncidentIntent(req, res) {
-  var empid = req.body.result.parameters["empid"];
 
-  if (empid === '39416') {    
-    response = {messages: {"type":2,"platform":"facebook","title":"Choose a department Webhook.","replies":["STG","Facility/Engineering","Finance","Hexavarsity","CRM","QMG"]}}
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ "speech": response, "displayText": response
-    }));
-  }
-  else {
-    response = "Employee Id does not exist!"
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ "speech": response, "displayText": response 
-    }));
-  }
+  response = "Please provide your employee Id!"
+  res.setHeader('Content-Type', 'application/json');
+  res.send(JSON.stringify({ "speech": response, "displayText": response 
+  }));
+
+
+  // var empid = req.body.result.parameters["empid"];
+
+  // if (empid === '39416') {    
+  //   response = {messages: {"type":2,"platform":"facebook","title":"Choose a department Webhook.","replies":["STG","Facility/Engineering","Finance","Hexavarsity","CRM","QMG"]}}
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.send(JSON.stringify({ "speech": response, "displayText": response
+  //   }));
+  // }
+  // else {
+  //   response = "Employee Id does not exist!"
+  //   res.setHeader('Content-Type', 'application/json');
+  //   res.send(JSON.stringify({ "speech": response, "displayText": response 
+  //   }));
+  // }
 }
 
 console.log("Server Running at Port : "+port);
