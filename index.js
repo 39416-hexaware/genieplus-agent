@@ -37,10 +37,10 @@ app.post("/api",function(req,res){
 function newIncidentIntent(req, res) {
   var empid = req.body.result.parameters["empid"];
 
-  if (empid === '39416') {
-    response = "Employee Id available!"
+  if (empid === '39416') {    
+    response = {messages: {"type":2,"platform":"facebook","title":"Choose a department.","replies":["STG","Facility/Engineering","Finance","Hexavarsity","CRM","QMG"]}}
     res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({ "speech": response, "displayText": response 
+    res.send(JSON.stringify({ "speech": response, "displayText": response
     }));
   }
   else {
