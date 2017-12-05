@@ -169,7 +169,7 @@ function commonServiceCall(req, res, type) {
   let username = '33238';
   let pwd = 'abc123';
   var options = {
-    url: 'https://dev18442.service-now.com/api/now/table/incident',
+    url: urlPath, //'https://dev18442.service-now.com/api/now/table/incident',
     method: methodType, //type == 'generateSRId' ? 'POST' : 'GET',
     header: commonfile.headerTemplate(),
     body: data,
