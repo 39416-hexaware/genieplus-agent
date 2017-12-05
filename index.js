@@ -46,38 +46,45 @@ app.post("/api", function (req, res) {
     res.send(JSON.stringify({
       "data": {
         "facebook": {
-          "message":{
-            "attachment":{
-              "type":"template",
-              "payload":{
-                "template_type":"generic",
-                "elements":[
-                   {
-                    "title":"Welcome to Peter'\''s Hats",
-                    "image_url":"https://petersfancybrownhats.com/company_image.png",
-                    "subtitle":"We'\''ve got the right hat for everyone.",
-                    "default_action": {
+          "attachment": {
+            "type": "template",
+            "payload": {
+              "template_type": "list",
+              "elements": [
+                {
+                  "title": "Classic T-Shirt Collection",
+                  "image_url": "https://xvir.github.io/img/apiai.png",
+                  "subtitle": "See all our colors",
+                  "default_action": {
+                    "type": "web_url",
+                    "url": "https://xvir.github.io/"
+                  
+                  },
+                  "buttons": [
+                    {
+                      "title": "View",
                       "type": "web_url",
-                      "url": "https://peterssendreceiveapp.ngrok.io/view?item=103",
-                      "messenger_extensions": true,
-                      "webview_height_ratio": "tall",
-                      "fallback_url": "https://peterssendreceiveapp.ngrok.io/"
-                    },
-                    "buttons":[
-                      {
-                        "type":"web_url",
-                        "url":"https://petersfancybrownhats.com",
-                        "title":"View Website"
-                      },
-                      {
-                        "type":"postback",
-                        "title":"Start Chatting",
-                        "payload":"DEVELOPER_DEFINED_PAYLOAD"
-                      }              
-                    ]      
-                  }
-                ]
-              }
+                      "url": "https://xvir.github.io/"
+                    }
+                  ]
+                },
+                {
+                  "title": "Classic T-Shirt Collection",
+                  "image_url": "https://xvir.github.io/img/apiai.png",
+                  "subtitle": "See all our colors",
+                  "default_action": {
+                    "type": "web_url",
+                    "url": "http://xvir.github.io/"
+                  },
+                  "buttons": [
+                    {
+                      "title": "View",
+                      "type": "web_url",
+                      "url": "https://xvir.github.io/"
+                    }
+                  ]
+                }
+              ]
             }
           }
         }
