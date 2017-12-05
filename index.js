@@ -195,7 +195,8 @@ function commonServiceCall(req, res, type) {
       if (body.result.length > 0) {
         console.log(body.result);
         let category = body.result[0].category;
-        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
+        let incidentdesc = body.result[0].short_description;
+        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!";
         commonfile.sendMessage(res, finalresponse);
       }
       else {
