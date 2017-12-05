@@ -168,13 +168,14 @@ function postServiceCall(req, res, type) {
 
   request(options, function (error, response, body) {
     if (error) {
-      console.dir(error)
+      console.dir(error);
       //throw new Error(`Error: ${error}`);
       return
     } 
-    console.dir('headers', response.headers);
-    console.dir('status code', response.statusCode);
-    console.dir(body);
+    console.log('headers', response.headers);
+    console.log('status code', response.statusCode);
+    console.log(JSON.parse(body));
+    console.log(JSON.parse('Incide ID: ' + body.result.number));
   });
 
   // var objJSON = JSON.stringify(data);
