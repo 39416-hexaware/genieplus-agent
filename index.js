@@ -102,8 +102,6 @@ function newIncidentIntent(req, res) {
     }));
   }
 
-  console.log('event call y');
-
   // var empid = req.body.result.parameters["empid"];
 
   // if (empid === '39416') {    
@@ -196,7 +194,7 @@ function commonServiceCall(req, res, type) {
     else {
       if (body.result.length > 0) {
         console.log(body.result);
-        let category = body.result.category;
+        let category = body.result[0].category;
         finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
         commonfile.sendMessage(res, finalresponse);
       }
