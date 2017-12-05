@@ -29,7 +29,7 @@ app.get("/api", function (req, res) {
 
 app.post("/api", function (req, res) {
   var body = req.body;
-  console.log(JSON.stringify(body));
+  console.log(JSON.stringify(req.body.result.action));
   // if(req.body.originalRequest.source === 'facebook') {
   if (req.body.result.action === 'input.newincident') {
     newIncidentIntent(req, res);
