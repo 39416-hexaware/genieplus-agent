@@ -164,9 +164,6 @@ function commonServiceCall(req, res, type) {
     methodType = 'GET';
     incidentId = req.body.result.contexts[0].parameters.incidentid;
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident?number=' + incidentId;
-
-    console.log( req.body.result.contexts[0].parameters.incidentid);
-    return false;
   }
 
   let username = '33238';
@@ -190,14 +187,15 @@ function commonServiceCall(req, res, type) {
     }
     console.log('headers:' + response.headers);
     console.log('status code:' + response.statusCode);
-    console.log(body);
     if (type == 'generateSRId') {
+      console.log(body);
       console.log('Incident ID: ' + body.result.number);
       finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
       commonfile.sendMessage(res, finalresponse);
     }
     else {
       if (body.result.length > 0) {
+        console.log(body.result);
         let category = body.result.category;
         finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
         commonfile.sendMessage(res, finalresponse);
