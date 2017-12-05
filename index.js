@@ -171,6 +171,7 @@ function postServiceCall(req, res, type) {
   reqPost.end();
   reqPost.on('error', function(e) {
       console.error(e);
+      console.log('error found!');
   });
  
 
