@@ -2,6 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
 var request = require('request');
+var commonfile = require('./commonfiles/commonfile');
 // var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
@@ -43,11 +44,13 @@ function newIncidentIntent(req, res) {
   console.log(req.body.result.parameters["empid"]);
   console.log(typeof (req.body.result.parameters["empid"]));
   if (req.body.result.parameters["empid"] == '') {
-    response = "Please provide your employee Id!"
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      "speech": response, "displayText": response
-    }));
+    response = "Please provide your employee Id!";
+    commonfile.sendMessage(res, response);
+    // response = "Please provide your employee Id!"
+    // res.setHeader('Content-Type', 'application/json');
+    // res.send(JSON.stringify({
+    //   "speech": response, "displayText": response
+    // }));
   }
   else if (isNaN(req.body.result.parameters["empid"])) {
     response = "Incorrect format! Please enter employee Id as number!"
@@ -136,7 +139,7 @@ function postServiceCall(req, res, type) {
   let location = req.body.result.contexts[0].parameters.location;
   let project = req.body.result.contexts[0].parameters.project;
   let category = req.body.result.contexts[0].parameters.category;
-  let buidling = req.body.result.contexts[0].parameters.buidling;
+  let building = req.body.result.contexts[0].parameters.building;
   let desc = req.body.result.contexts[0].parameters.description;
 
 
@@ -175,7 +178,7 @@ function postServiceCall(req, res, type) {
     console.log('status code:' + response.statusCode);
     console.log(body);
     console.log('Incident ID: ' + body.result.number);
-    apiresponse = "Hi" + empid + ", your incident (Incident ID - "+ body.result.number +") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
+    apiresponse = "Hi " + empid + ", your incident (Incident ID - "+ body.result.number +") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
       "speech": apiresponse, "displayText": apiresponse
@@ -218,10 +221,6 @@ function postServiceCall(req, res, type) {
   //     var responseObject = JSON.parse(responseString);
   //     success(responseObject);
   //     response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
-  //     res.setHeader('Content-Type', 'application/json');
-  //     res.send(JSON.stringify({
-  //       "speech": response, "displayText": response
-  //     }));
   //   });
   // });
 
