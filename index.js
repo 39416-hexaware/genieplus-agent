@@ -1,6 +1,7 @@
 var express = require('express');
 var bodyParser = require('body-parser');
 var https = require('https');
+var request = require('request');
 // var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
@@ -137,6 +138,8 @@ function postServiceCall(req, res, type) {
   let category = req.body.result.contexts[0].parameters.category;
   let buidling = req.body.result.contexts[0].parameters.buidling;
   let desc = req.body.result.contexts[0].parameters.description;
+
+
   let username = '33238';
   let pwd = 'abc123';
   var header = {
@@ -145,39 +148,48 @@ function postServiceCall(req, res, type) {
     'Accept': 'application/json',
     'Cache-Control': 'no-cache'
   };
-  var options = {
-    host: 'dev18442.service-now.com',
-    method: 'POST',
-    header: header,
-    path : '/api/now/table/incident'
-  };
   var data = {
     "short_description": desc,
     "urgency": "2",
     "impact": "2",
     "caller_id": empid
   };
-  var objJSON = JSON.stringify(data);
+  var options = {
+    url: 'dev18442.service-now.com/api/now/table/incident',
+    method: 'POST',
+    header: header,
+    body : data,
+    json : true
+  };
 
-  var reqPost = https.request(options, function(res) {
-    console.log(`STATUS: ${res.statusCode}`);
-    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
-    res.setEncoding('utf8');
-    res.on('data', (chunk) => {
-      console.log(`BODY: ${chunk}`);
-    });
-    res.on('end', () => {
-      console.log('No more data in response.');
-    });
-  });
+  request(options, function (error, response, body) {
+    if (error) throw new Error(error);
   
-  reqPost.on('error', (e) => {
-    console.error(`problem with request: ${e.message}`);
+    console.log(body);
+    console.log(response);
   });
+
+  // var objJSON = JSON.stringify(data);
+
+  // var reqPost = https.request(options, function(res) {
+  //   console.log(`STATUS: ${res.statusCode}`);
+  //   console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+  //   res.setEncoding('utf8');
+  //   res.on('data', (chunk) => {
+  //     console.log(`BODY: ${chunk}`);
+  //   });
+  //   res.on('end', () => {
+  //     console.log('No more data in response.');
+  //   });
+  // });
   
-  // write data to request body
-  reqPost.write(objJSON);
-  reqPost.end();
+  // reqPost.on('error', (e) => {
+  //   console.error(`problem with request: ${e.message}`);
+  // });
+  
+  // // write data to request body
+  // reqPost.write(objJSON);
+  // reqPost.end();
  
 
   // var request = http.request(options, function (result) {
