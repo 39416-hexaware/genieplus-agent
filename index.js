@@ -143,9 +143,9 @@ function postServiceCall(req, res, type) {
   let username = '33238';
   let pwd = 'abc123';
   var header = {
-    'Authorization': 'Basic ' + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
+    Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
     'Content-Type': 'application/json',
-    'Accept': 'application/json',
+    Accept : 'application/json',
     'Cache-Control': 'no-cache'
   };
   var data = {
@@ -163,10 +163,9 @@ function postServiceCall(req, res, type) {
   };
 
   request(options, function (error, response, body) {
-    if (error) throw new Error(error);
+    if (error) throw new Error(`Error: ${error}`);
   
     console.log(body);
-    console.log(response);
   });
 
   // var objJSON = JSON.stringify(data);
