@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var https = require('http');
+var https = require('https');
 // var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
@@ -39,7 +39,7 @@ app.post("/api", function (req, res) {
 //POST Call Endpoint
 
 function newIncidentIntent(req, res) {
-  console.log(req.body.result.parameters["empid"] + "Mubash");
+  console.log(req.body.result.parameters["empid"]);
   console.log(typeof (req.body.result.parameters["empid"]));
   if (req.body.result.parameters["empid"] == '') {
     response = "Please provide your employee Id!"
@@ -188,7 +188,6 @@ function postServiceCall(req, res, type) {
 
   //   result.on('end', function () {
   //     console.log(responseString);
-  //     console.log('mubash');
   //     var responseObject = JSON.parse(responseString);
   //     success(responseObject);
   //     response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
