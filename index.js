@@ -156,29 +156,47 @@ function postServiceCall(req, res, type) {
   };
   var objJSON = JSON.stringify(data);
 
-  var request = http.request(options, function (result) {
-    result.setEncoding('utf-8');
-    var responseString = '';
-
-    result.on('data', function (data) {
-      responseString += data;
-    });
-
-    result.on('end', function () {
-      console.log(responseString);
-      console.log('mubash');
-      var responseObject = JSON.parse(responseString);
-      success(responseObject);
-      response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
-      res.setHeader('Content-Type', 'application/json');
-      res.send(JSON.stringify({
-        "speech": response, "displayText": response
-      }));
+  var reqPost = https.request(options, function(res) {
+    console.log("statusCode: ", res.statusCode);
+    // uncomment it for header details
+    console.log("headers: ", res.headers);
+ 
+    res.on('data', function(d) {
+        console.info('POST result:\n');
+        process.stdout.write(d);
+        console.info('\n\nPOST completed');
     });
   });
+  reqPost.write(objJSON);
+  reqPost.end();
+  reqPost.on('error', function(e) {
+      console.error(e);
+  });
+ 
 
-  request.send(objJSON);
-  request.end();
+  // var request = http.request(options, function (result) {
+  //   result.setEncoding('utf-8');
+  //   var responseString = '';
+
+  //   result.on('data', function (data) {
+  //     responseString += data;
+  //   });
+
+  //   result.on('end', function () {
+  //     console.log(responseString);
+  //     console.log('mubash');
+  //     var responseObject = JSON.parse(responseString);
+  //     success(responseObject);
+  //     response = "Hi" + empid + ", your incident has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
+  //     res.setHeader('Content-Type', 'application/json');
+  //     res.send(JSON.stringify({
+  //       "speech": response, "displayText": response
+  //     }));
+  //   });
+  // });
+
+  // request.send(objJSON);
+  // request.end();
 }
 
 console.log("Server Running at Port : " + port);
