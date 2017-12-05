@@ -63,26 +63,45 @@ function newIncidentIntent(req, res) {
     }));
   }
   else {
-    // response = {messages: {"type":2,"platform":"facebook"}};
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
       "data": {
         "facebook": {
-           "text": "Pick a color:",
-           "quick_replies": [
-              {
-                 "content_type": "text",
-                 "title": "Red",
-                 "payload": "red"
-              },
-              {
-                 "content_type": "text",
-                 "title": "Green",
-                 "payload": "green"
-              }
-           ]
+          "text": "Choose a department:",
+          "quick_replies": [
+            {
+              "content_type": "text",
+              "title": "STG",
+              "payload": "STG"
+            },
+            {
+              "content_type": "text",
+              "title": "Facility/Engineering",
+              "payload": "Facility/Engineering"
+            },
+            {
+              "content_type": "text",
+              "title": "Finance",
+              "payload": "Finance"
+            },
+            {
+              "content_type": "text",
+              "title": "Hexavarsity",
+              "payload": "Hexavarsity"
+            },
+            {
+              "content_type": "text",
+              "title": "CRM",
+              "payload": "CRM"
+            },
+            {
+              "content_type": "text",
+              "title": "QMG",
+              "payload": "QMG"
+            }
+          ]
         }
-     }
+      }
     }));
   }
 
