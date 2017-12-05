@@ -41,6 +41,7 @@ app.post("/api", function (req, res) {
     checkIncidentStatus(req, res);
   }
   else {
+    console.log('welcome');
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
       "data": {
