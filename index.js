@@ -133,7 +133,7 @@ function checkIncidentStatus(req, res) {
 }
 
 function commonServiceCall(req, res, type) {
-  var data = '';
+  var data = '', methodType = '', urlPath = '';
   var empid= '', department = '', location = '', project = '', category = '', building = '', desc = '';
   var incidentId = '';
   if (type == 'generateSRId') {
@@ -144,7 +144,9 @@ function commonServiceCall(req, res, type) {
     category = req.body.result.contexts[0].parameters.category;
     building = req.body.result.contexts[0].parameters.building;
     desc = req.body.result.contexts[0].parameters.description;
-      
+
+    methodType = 'POST';    
+    urlPath = 'https://dev18442.service-now.com/api/now/table/incident';
     data = {
       "short_description": desc,
       "urgency": "2",
@@ -153,14 +155,16 @@ function commonServiceCall(req, res, type) {
     };    
   }
   else {
+    methodType = 'GET';
     incidentId = req.body.result.contexts[0].parameters.incidentid;
+    urlPath = 'https://dev18442.service-now.com/api/now/table/incident?number=' + incidentId;
   }
 
   let username = '33238';
   let pwd = 'abc123';
   var options = {
     url: 'https://dev18442.service-now.com/api/now/table/incident',
-    method: type == 'generateSRId' ? 'POST' : 'GET',
+    method: methodType, //type == 'generateSRId' ? 'POST' : 'GET',
     header: commonfile.headerTemplate(),
     body: data,
     json: true,
@@ -184,9 +188,15 @@ function commonServiceCall(req, res, type) {
       commonfile.sendMessage(res, finalresponse);
     }
     else {
-      let category = body.result.category;
-      finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
-      commonfile.sendMessage(res, finalresponse);
+      if (body.result.length > 0) {
+        let category = body.result.category;
+        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
+        commonfile.sendMessage(res, finalresponse);
+      }
+      else {
+        finalresponse = "Incident Id is invalid!";
+        commonfile.sendMessage(res, finalresponse);
+      }
     }
   });
 
