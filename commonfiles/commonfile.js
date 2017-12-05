@@ -7,3 +7,13 @@ module.exports.sendMessage = function (response, message) {
       }));
     // return template;
 }
+
+module.exports.headerTemplate = function () {
+    var header = {
+        'Cache-Control': 'no-cache',
+        // Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
+        Accept: 'application/json',
+        'Content-Type': 'application/json'
+      };
+    return header;
+}

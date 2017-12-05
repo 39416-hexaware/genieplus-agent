@@ -1,11 +1,12 @@
+//imports
 var express = require('express');
 var bodyParser = require('body-parser');
-var https = require('https');
 var request = require('request');
-var commonfile = require('./commonfiles/commonfile');
+// var https = require('https');
 // var apiai = require('apiai');
+
 //dependencies
-// var calculator = require('./processor/calculator');
+var commonfile = require('./commonfiles/commonfile');
 
 app = express();
 //Create express object
@@ -46,25 +47,14 @@ function newIncidentIntent(req, res) {
   if (req.body.result.parameters["empid"] == '') {
     response = "Please provide your employee Id!";
     commonfile.sendMessage(res, response);
-    // response = "Please provide your employee Id!"
-    // res.setHeader('Content-Type', 'application/json');
-    // res.send(JSON.stringify({
-    //   "speech": response, "displayText": response
-    // }));
   }
   else if (isNaN(req.body.result.parameters["empid"])) {
     response = "Incorrect format! Please enter employee Id as number!"
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      "speech": response, "displayText": response
-    }));
+    commonfile.sendMessage(res, response);
   }
   else if (req.body.result.parameters["empid"].length > 5) {
     response = "Employee Id not found in the database! Please enter the correct number!"
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      "speech": response, "displayText": response
-    }));
+    commonfile.sendMessage(res, response);
   }
   else {
     res.setHeader('Content-Type', 'application/json');
@@ -132,10 +122,10 @@ function generateSRId(req, res) {
   console.log(req.body.result.contexts[0].parameters);
 
 
-  postServiceCall(req, res, 'post');
+  commonServiceCall(req, res, 'generateSRId');
 }
 
-function postServiceCall(req, res, type) {
+function commonServiceCall(req, res, type) {
   let empid = req.body.result.contexts[0].parameters.empid;
   let department = req.body.result.contexts[0].parameters.department;
   let location = req.body.result.contexts[0].parameters.location;
@@ -144,15 +134,8 @@ function postServiceCall(req, res, type) {
   let building = req.body.result.contexts[0].parameters.building;
   let desc = req.body.result.contexts[0].parameters.description;
 
-
   let username = '33238';
   let pwd = 'abc123';
-  var header = {
-    'Cache-Control': 'no-cache',
-    // Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-  };
   var data = {
     "short_description": desc,
     "urgency": "2",
@@ -162,7 +145,7 @@ function postServiceCall(req, res, type) {
   var options = {
     url: 'https://dev18442.service-now.com/api/now/table/incident',
     method: 'POST',
-    header: header,
+    header: commonfile.headerTemplate(),
     body: data,
     json: true,
     auth: {
@@ -180,11 +163,8 @@ function postServiceCall(req, res, type) {
     console.log('status code:' + response.statusCode);
     console.log(body);
     console.log('Incident ID: ' + body.result.number);
-    apiresponse = "Hi " + empid + ", your incident (Incident ID - "+ body.result.number +") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      "speech": apiresponse, "displayText": apiresponse
-    }));
+    finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
+    commonfile.sendMessage(res, finalresponse);
   });
 
   // var objJSON = JSON.stringify(data);
