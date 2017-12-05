@@ -143,10 +143,10 @@ function postServiceCall(req, res, type) {
   let username = '33238';
   let pwd = 'abc123';
   var header = {
-    Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
-    'Content-Type': 'application/json',
+    'Cache-Control': 'no-cache',
+    // Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
     Accept : 'application/json',
-    'Cache-Control': 'no-cache'
+    'Content-Type': 'application/json'    
   };
   var data = {
     "short_description": desc,
@@ -159,13 +159,22 @@ function postServiceCall(req, res, type) {
     method: 'POST',
     header: header,
     body : data,
-    json : true
+    json : true,
+    auth: {
+      user: username,
+      password: pwd
+    }
   };
 
   request(options, function (error, response, body) {
-    if (error) throw new Error(`Error: ${error}`);
-  
-    console.log(body);
+    if (error) {
+      console.dir(error)
+      //throw new Error(`Error: ${error}`);
+      return
+    } 
+    console.dir('headers', response.headers);
+    console.dir('status code', response.statusCode);
+    console.dir(body);
   });
 
   // var objJSON = JSON.stringify(data);
