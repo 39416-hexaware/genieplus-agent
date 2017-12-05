@@ -1,6 +1,6 @@
 var express = require('express');
 var bodyParser = require('body-parser');
-var http = require('http');
+var https = require('http');
 // var apiai = require('apiai');
 //dependencies
 // var calculator = require('./processor/calculator');
