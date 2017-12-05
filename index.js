@@ -164,6 +164,9 @@ function commonServiceCall(req, res, type) {
     methodType = 'GET';
     incidentId = req.body.result.contexts[0].parameters.incidentid;
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident?number=' + incidentId;
+
+    console.log( req.body.result.contexts[0].parameters.incidentid);
+    return false;
   }
 
   let username = '33238';
@@ -200,7 +203,7 @@ function commonServiceCall(req, res, type) {
         commonfile.sendMessage(res, finalresponse);
       }
       else {
-        finalresponse = "Incident Id is invalid!";
+        finalresponse = "Incident Id not found in the database! Please enter the correct number!";
         commonfile.sendMessage(res, finalresponse);
       }
     }
