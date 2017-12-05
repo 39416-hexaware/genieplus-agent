@@ -137,8 +137,10 @@ function postServiceCall(req, res, type) {
   let category = req.body.result.contexts[0].parameters.category;
   let buidling = req.body.result.contexts[0].parameters.buidling;
   let desc = req.body.result.contexts[0].parameters.description;
+  let username = '33238';
+  let pwd = 'abc123';
   var header = {
-    'Authorization': 'Basic MzMyMzg6YWJjMTIz',
+    'Authorization': 'Basic ' + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
     'Content-Type': 'application/json',
     'Accept': 'application/json',
     'Cache-Control': 'no-cache'
