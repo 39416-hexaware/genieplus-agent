@@ -147,8 +147,7 @@ function postServiceCall(req, res, type) {
     host: 'https://dev18442.service-now.com',
     method: 'POST',
     header: header,
-    path : '/api/now/table/incident',
-    port : 80
+    path : '/api/now/table/incident'
   };
   var data = {
     "short_description": desc,
