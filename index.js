@@ -145,8 +145,8 @@ function postServiceCall(req, res, type) {
   var header = {
     'Cache-Control': 'no-cache',
     // Authorization: 'Basic MzMyMzg6YWJjMTIz', // + new Buffer(username + ':' + pwd).toString('base64'), //MzMyMzg6YWJjMTIz',
-    Accept : 'application/json',
-    'Content-Type': 'application/json'    
+    Accept: 'application/json',
+    'Content-Type': 'application/json'
   };
   var data = {
     "short_description": desc,
@@ -158,8 +158,8 @@ function postServiceCall(req, res, type) {
     url: 'https://dev18442.service-now.com/api/now/table/incident',
     method: 'POST',
     header: header,
-    body : data,
-    json : true,
+    body: data,
+    json: true,
     auth: {
       user: username,
       password: pwd
@@ -169,13 +169,17 @@ function postServiceCall(req, res, type) {
   request(options, function (error, response, body) {
     if (error) {
       console.dir(error);
-      //throw new Error(`Error: ${error}`);
       return
-    } 
+    }
     console.log('headers:' + response.headers);
     console.log('status code:' + response.statusCode);
     console.log(body);
-    console.log('Incide IDt: ' + body.result.number);
+    console.log('Incident ID: ' + body.result.number);
+    apiresponse = "Hi" + empid + ", your incident (Incident ID - "+ body.result.number +") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + buidling + ", Description - " + desc + ". Thank you!!"
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      "speech": apiresponse, "displayText": apiresponse
+    }));
   });
 
   // var objJSON = JSON.stringify(data);
@@ -191,15 +195,15 @@ function postServiceCall(req, res, type) {
   //     console.log('No more data in response.');
   //   });
   // });
-  
+
   // reqPost.on('error', (e) => {
   //   console.error(`problem with request: ${e.message}`);
   // });
-  
+
   // // write data to request body
   // reqPost.write(objJSON);
   // reqPost.end();
- 
+
 
   // var request = http.request(options, function (result) {
   //   result.setEncoding('utf-8');
