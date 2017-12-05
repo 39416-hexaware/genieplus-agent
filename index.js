@@ -147,7 +147,8 @@ function postServiceCall(req, res, type) {
     host: 'https://dev18442.service-now.com',
     method: 'POST',
     header: header,
-    path : '/api/now/table/incident'
+    path : '/api/now/table/incident',
+    port : 80
   };
   var data = {
     "short_description": desc,
@@ -158,22 +159,24 @@ function postServiceCall(req, res, type) {
   var objJSON = JSON.stringify(data);
 
   var reqPost = https.request(options, function(res) {
-    console.log("statusCode: ", res.statusCode);
-    // uncomment it for header details
-    console.log("headers: ", res.headers);
- 
-    res.on('data', function(d) {
-        console.info('POST result:\n');
-        process.stdout.write(d);
-        console.info('\n\nPOST completed');
+    console.log(`STATUS: ${res.statusCode}`);
+    console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+    res.setEncoding('utf8');
+    res.on('data', (chunk) => {
+      console.log(`BODY: ${chunk}`);
+    });
+    res.on('end', () => {
+      console.log('No more data in response.');
     });
   });
-  reqPost.write(objJSON);
-  reqPost.end();
-  reqPost.on('error', function(e) {
-      console.error(e);
-      console.log('error found!');
+  
+  req.on('error', (e) => {
+    console.error(`problem with request: ${e.message}`);
   });
+  
+  // write data to request body
+  req.write(objJSON);
+  req.end();
  
 
   // var request = http.request(options, function (result) {
