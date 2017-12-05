@@ -170,13 +170,13 @@ function postServiceCall(req, res, type) {
     });
   });
   
-  req.on('error', (e) => {
+  reqPost.on('error', (e) => {
     console.error(`problem with request: ${e.message}`);
   });
   
   // write data to request body
-  req.write(objJSON);
-  req.end();
+  reqPost.write(objJSON);
+  reqPost.end();
  
 
   // var request = http.request(options, function (result) {
