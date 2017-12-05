@@ -172,10 +172,10 @@ function postServiceCall(req, res, type) {
       //throw new Error(`Error: ${error}`);
       return
     } 
-    console.log('headers', response.headers);
-    console.log('status code', response.statusCode);
-    console.log(JSON.parse(body));
-    console.log(JSON.parse('Incide ID: ' + body.result.number));
+    console.log('headers:' + response.headers);
+    console.log('status code:' + response.statusCode);
+    console.log(body);
+    console.log('Incide IDt: ' + body.result.number);
   });
 
   // var objJSON = JSON.stringify(data);
