@@ -109,6 +109,8 @@ function newIncidentIntent(req, res) {
     }));
   }
 
+  console.log('event call y');
+
   // var empid = req.body.result.parameters["empid"];
 
   // if (empid === '39416') {    
