@@ -64,6 +64,26 @@ function newIncidentIntent(req, res) {
   }
   else {
     // response = {messages: {"type":2,"platform":"facebook"}};
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
+      "data": {
+        "facebook": {
+           "text": "Pick a color:",
+           "quick_replies": [
+              {
+                 "content_type": "text",
+                 "title": "Red",
+                 "payload": "red"
+              },
+              {
+                 "content_type": "text",
+                 "title": "Green",
+                 "payload": "green"
+              }
+           ]
+        }
+     }
+    }));
   }
 
   // var empid = req.body.result.parameters["empid"];
