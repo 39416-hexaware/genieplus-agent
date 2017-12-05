@@ -155,7 +155,7 @@ function postServiceCall(req, res, type) {
     "caller_id": empid
   };
   var options = {
-    url: 'dev18442.service-now.com/api/now/table/incident',
+    url: 'https://dev18442.service-now.com/api/now/table/incident',
     method: 'POST',
     header: header,
     body : data,
