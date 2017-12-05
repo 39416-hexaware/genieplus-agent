@@ -144,9 +144,10 @@ function postServiceCall(req, res, type) {
     'Cache-Control': 'no-cache'
   };
   var options = {
-    host: 'https://dev18442.service-now.com/api/now/table/incident',
+    host: 'https://dev18442.service-now.com',
     method: 'POST',
-    header: header
+    header: header,
+    path : '/api/now/table/incident'
   };
   var data = {
     "short_description": desc,
