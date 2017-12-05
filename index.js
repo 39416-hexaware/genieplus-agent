@@ -41,9 +41,7 @@ app.post("/api", function (req, res) {
     checkIncidentStatus(req, res);
   }
   else {
-    console.log('welcome');
-    response = "Coming from webhook!";
-    commonfile.sendMessage(res, response);    
+    console.log('welcome');   
   }
   // }
 });
