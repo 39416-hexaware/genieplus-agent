@@ -7,7 +7,6 @@ module.exports.sendMessage = function (response, message) {
       }));
     // return template;
 }
-
 module.exports.headerTemplate = function () {
     var header = {
         'Cache-Control': 'no-cache',
@@ -17,3 +16,17 @@ module.exports.headerTemplate = function () {
       };
     return header;
 }
+// module.exports = ServiceNowApi;
+
+// class ServiceNowApi {
+//     short_description
+//     urgency
+//     impact
+//     caller_id
+//     constructor(objServiceNowApi) {
+//         this.short_description = objServiceNowApi.short_description == undefined ? "" : objServiceNowApi.short_description;
+//         urgency = objServiceNowApi.urgency == undefined ? "" : objServiceNowApi.urgency;
+//         impact = objServiceNowApi.impact == undefined ? "" : objServiceNowApi.impact;
+//         caller_id = objServiceNowApi.caller_id == undefined ? "" : objServiceNowApi.caller_id;
+//     }
+// }

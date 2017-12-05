@@ -37,6 +37,9 @@ app.post("/api", function (req, res) {
   else if (req.body.result.action === 'input.system.incident2') {
     generateSRId(req, res);
   }
+  else if (req.body.result.action === 'input.incidentstatus') {
+    checkIncidentStatus(req, res);
+  }
   // }
 });
 //POST Call Endpoint
@@ -120,31 +123,44 @@ function newIncidentIntent(req, res) {
 function generateSRId(req, res) {
   console.log(req.body.result + '   ' + 'from Webhook');
   console.log(req.body.result.contexts[0].parameters);
-
-
   commonServiceCall(req, res, 'generateSRId');
 }
 
+function checkIncidentStatus(req, res) {
+  console.log(req.body.result + '   ' + 'from Webhook');
+  console.log(req.body.result.contexts[0].parameters);
+  commonServiceCall(req, res, 'checkIncidentStatus');
+}
+
 function commonServiceCall(req, res, type) {
-  let empid = req.body.result.contexts[0].parameters.empid;
-  let department = req.body.result.contexts[0].parameters.department;
-  let location = req.body.result.contexts[0].parameters.location;
-  let project = req.body.result.contexts[0].parameters.project;
-  let category = req.body.result.contexts[0].parameters.category;
-  let building = req.body.result.contexts[0].parameters.building;
-  let desc = req.body.result.contexts[0].parameters.description;
+  var data = '';
+  var empid= '', department = '', location = '', project = '', category = '', building = '', desc = '';
+  var incidentId = '';
+  if (type == 'generateSRId') {
+    empid = req.body.result.contexts[0].parameters.empid;
+    department = req.body.result.contexts[0].parameters.department;
+    location = req.body.result.contexts[0].parameters.location;
+    project = req.body.result.contexts[0].parameters.project;
+    category = req.body.result.contexts[0].parameters.category;
+    building = req.body.result.contexts[0].parameters.building;
+    desc = req.body.result.contexts[0].parameters.description;
+      
+    data = {
+      "short_description": desc,
+      "urgency": "2",
+      "impact": "2",
+      "caller_id": empid
+    };    
+  }
+  else {
+    incidentId = req.body.result.contexts[0].parameters.incidentid;
+  }
 
   let username = '33238';
   let pwd = 'abc123';
-  var data = {
-    "short_description": desc,
-    "urgency": "2",
-    "impact": "2",
-    "caller_id": empid
-  };
   var options = {
     url: 'https://dev18442.service-now.com/api/now/table/incident',
-    method: 'POST',
+    method: type == 'generateSRId' ? 'POST' : 'GET',
     header: commonfile.headerTemplate(),
     body: data,
     json: true,
@@ -153,7 +169,7 @@ function commonServiceCall(req, res, type) {
       password: pwd
     }
   };
-
+  
   request(options, function (error, response, body) {
     if (error) {
       console.dir(error);
@@ -162,9 +178,16 @@ function commonServiceCall(req, res, type) {
     console.log('headers:' + response.headers);
     console.log('status code:' + response.statusCode);
     console.log(body);
-    console.log('Incident ID: ' + body.result.number);
-    finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
-    commonfile.sendMessage(res, finalresponse);
+    if (type == 'generateSRId') {
+      console.log('Incident ID: ' + body.result.number);
+      finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
+      commonfile.sendMessage(res, finalresponse);
+    }
+    else {
+      let category = body.result.category;
+      finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + "!";
+      commonfile.sendMessage(res, finalresponse);
+    }
   });
 
   // var objJSON = JSON.stringify(data);
