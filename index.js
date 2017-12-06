@@ -192,7 +192,32 @@ function commonServiceCall(req, res, type) {
       console.log(body);
       console.log('Incident ID: ' + body.result.number);
       finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
-      commonfile.sendMessage(res, finalresponse);
+      res.setHeader('Content-Type', 'application/json');
+      res.send(JSON.stringify({
+        "data": {
+          "facebook": {
+            "text": finalresponse,
+            "quick_replies": [
+              {
+                "content_type": "text",
+                "title": "Place an incident",
+                "payload": "Place a new incident"
+              },
+              {
+                "content_type": "text",
+                "title": "Check Incident Status",
+                "payload": "Incident Status"
+              },
+              {
+                "content_type": "text",
+                "title": "Service Request",
+                "payload": "Service Request"
+              }
+            ]
+          }
+        }
+      }));
+      //commonfile.sendMessage(res, finalresponse);
     }
     else {
       if (body.result.length > 0) {
@@ -200,7 +225,32 @@ function commonServiceCall(req, res, type) {
         let category = body.result[0].category;
         let incidentdesc = body.result[0].short_description;
         finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!";
-        commonfile.sendMessage(res, finalresponse);
+        res.setHeader('Content-Type', 'application/json');
+        res.send(JSON.stringify({
+          "data": {
+            "facebook": {
+              "text": finalresponse,
+              "quick_replies": [
+                {
+                  "content_type": "text",
+                  "title": "Place an incident",
+                  "payload": "Place a new incident"
+                },
+                {
+                  "content_type": "text",
+                  "title": "Check Incident Status",
+                  "payload": "Incident Status"
+                },
+                {
+                  "content_type": "text",
+                  "title": "Service Request",
+                  "payload": "Service Request"
+                }
+              ]
+            }
+          }
+        }));
+        //commonfile.sendMessage(res, finalresponse);
       }
       else {
         finalresponse = "Incident Id not found in the database! Please enter the correct number!";
