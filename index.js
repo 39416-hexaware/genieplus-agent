@@ -129,8 +129,8 @@ function generateSRId(req, res) {
 
 function checkIncidentStatus(req, res) {
   console.log(req.body.result + '   ' + 'from Webhook');
-  console.log(req.body);
-  if (req.body.result.parameters["incidentid"] == '') {
+  console.log(req.body.result.resolvedQuery == 'incident status');
+  if (req.body.result.resolvedQuery == 'incident status') {
     response = "Please provide your incident Id!";
     commonfile.sendMessage(res, response);
   }
@@ -163,7 +163,7 @@ function commonServiceCall(req, res, type) {
   }
   else {
     methodType = 'GET';
-    incidentId = req.body.result.contexts[0].parameters.incidentid;
+    incidentId = req.body.result.resolvedQuery;
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident?number=' + incidentId;
   }
 
