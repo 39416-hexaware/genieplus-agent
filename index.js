@@ -41,77 +41,7 @@ app.post("/api", function (req, res) {
     checkIncidentStatus(req, res);
   }
   else {
-    console.log('welcome');
-    res.setHeader('Content-Type', 'application/json');
-    res.send(JSON.stringify({
-      "speech": "",
-      "messages": [
-        {
-          "type": 3,
-          "imageUrl": "URL"
-        },
-        {
-          "type": 0,
-          "speech": "First response"
-        },
-        {
-          "type": 0,
-          "speech": "My Second Response"
-        },
-        {
-          "type": 1,
-          "title": "Welcome to Peters Hats",
-          "image_url": "URL",
-          "subtitle": "Weve got the right hat for everyone.",
-          "buttons": [
-            {
-              "type": "web_url",
-              "url": "URL",
-              "title": "View Website"
-            }
-          ]
-        },
-        {
-          "type": 2,
-          "title": "What time is suitable for you?",
-          "replies": [
-            "12:00",
-            "13:00",
-            "14:00",
-            "15:00"
-          ]
-        },
-        {
-          "type": 4,
-          "facebook": {
-            "attachment": {
-              "type": "template",
-              "payload": {
-                "template_type": "button",
-                "text": "What can I help you with?",
-                "buttons": [
-                  {
-                    "type": "postback",
-                    "title": "Answer A",
-                    "payload": "A"
-                  },
-                  {
-                    "type": "postback",
-                    "title": "Answer B",
-                    "payload": "B"
-                  },
-                  {
-                    "type": "postback",
-                    "title": "Answer C",
-                    "payload": "C"
-                  }
-                ]
-              }
-            }
-          }
-        }
-      ]
-    }));
+    console.log('welcome');   
   }
   // }
 });
@@ -211,7 +141,7 @@ function checkIncidentStatus(req, res) {
 
 function commonServiceCall(req, res, type) {
   var data = '', methodType = '', urlPath = '';
-  var empid = '', department = '', location = '', project = '', category = '', building = '', desc = '';
+  var empid= '', department = '', location = '', project = '', category = '', building = '', desc = '';
   var incidentId = '';
   if (type == 'generateSRId') {
     empid = req.body.result.contexts[0].parameters.empid;
@@ -222,14 +152,14 @@ function commonServiceCall(req, res, type) {
     building = req.body.result.contexts[0].parameters.building;
     desc = req.body.result.contexts[0].parameters.description;
 
-    methodType = 'POST';
+    methodType = 'POST';    
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident';
     data = {
       "short_description": desc,
       "urgency": "2",
       "impact": "2",
       "caller_id": empid
-    };
+    };    
   }
   else {
     methodType = 'GET';
@@ -250,7 +180,7 @@ function commonServiceCall(req, res, type) {
       password: pwd
     }
   };
-
+  
   request(options, function (error, response, body) {
     if (error) {
       console.dir(error);
@@ -294,19 +224,14 @@ function commonServiceCall(req, res, type) {
         console.log(body.result);
         let category = body.result[0].category;
         let incidentdesc = body.result[0].short_description;
-        finalresponse = "Hi, your incidentId - " + incidentId + "  is placed as " + category + ". And your description is - " + incidentdesc + "!!!";
+        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!!! Any other queries?";
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
           "data": {
             "facebook": {
               "text": finalresponse,
-              "messages": [{
-                "type": 0,
-                "speech": finalresponse
-              }, {
-                "type": 2,
-                "title": "Any other queries?",
-                "replies": [{
+              "quick_replies": [
+                {
                   "content_type": "text",
                   "title": "Place an incident",
                   "payload": "Place a new incident"
@@ -321,8 +246,7 @@ function commonServiceCall(req, res, type) {
                   "title": "Service Request",
                   "payload": "Service Request"
                 }
-                ]
-              }]
+              ]
             }
           }
         }));
