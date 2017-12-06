@@ -129,7 +129,7 @@ function generateSRId(req, res) {
 
 function checkIncidentStatus(req, res) {
   console.log(req.body.result + '   ' + 'from Webhook');
-  console.log(req.body.result.contexts[0].parameters);
+  console.log(req.body);
   if (req.body.result.parameters["incidentid"] == '') {
     response = "Please provide your incident Id!";
     commonfile.sendMessage(res, response);
