@@ -197,6 +197,7 @@ function commonServiceCall(req, res, type) {
         "data": {
           "facebook": {
             "text": finalresponse,
+            "text": "Any other queries?",
             "quick_replies": [
               {
                 "content_type": "text",
@@ -230,6 +231,7 @@ function commonServiceCall(req, res, type) {
           "data": {
             "facebook": {
               "text": finalresponse,
+              "text": "Any other queries?",
               "quick_replies": [
                 {
                   "content_type": "text",
