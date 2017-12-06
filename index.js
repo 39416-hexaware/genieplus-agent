@@ -42,8 +42,8 @@ app.post("/api", function (req, res) {
   }
   else {
     console.log('welcome');  
-    response.setHeader('Content-Type', 'application/json');
-    response.send(JSON.stringify({
+    res.setHeader('Content-Type', 'application/json');
+    res.send(JSON.stringify({
       "speech": "",
       "messages": [
         {
