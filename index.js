@@ -41,7 +41,7 @@ app.post("/api", function (req, res) {
     checkIncidentStatus(req, res);
   }
   else {
-    console.log('welcome');  
+    console.log('welcome');
     res.setHeader('Content-Type', 'application/json');
     res.send(JSON.stringify({
       "speech": "",
@@ -111,7 +111,7 @@ app.post("/api", function (req, res) {
           }
         }
       ]
-    })); 
+    }));
   }
   // }
 });
@@ -211,7 +211,7 @@ function checkIncidentStatus(req, res) {
 
 function commonServiceCall(req, res, type) {
   var data = '', methodType = '', urlPath = '';
-  var empid= '', department = '', location = '', project = '', category = '', building = '', desc = '';
+  var empid = '', department = '', location = '', project = '', category = '', building = '', desc = '';
   var incidentId = '';
   if (type == 'generateSRId') {
     empid = req.body.result.contexts[0].parameters.empid;
@@ -222,14 +222,14 @@ function commonServiceCall(req, res, type) {
     building = req.body.result.contexts[0].parameters.building;
     desc = req.body.result.contexts[0].parameters.description;
 
-    methodType = 'POST';    
+    methodType = 'POST';
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident';
     data = {
       "short_description": desc,
       "urgency": "2",
       "impact": "2",
       "caller_id": empid
-    };    
+    };
   }
   else {
     methodType = 'GET';
@@ -250,7 +250,7 @@ function commonServiceCall(req, res, type) {
       password: pwd
     }
   };
-  
+
   request(options, function (error, response, body) {
     if (error) {
       console.dir(error);
@@ -294,14 +294,19 @@ function commonServiceCall(req, res, type) {
         console.log(body.result);
         let category = body.result[0].category;
         let incidentdesc = body.result[0].short_description;
-        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!!! Any other queries?";
+        finalresponse = "Hi, your incidentId - " + incidentId + "  is placed as " + category + ". And your description is - " + incidentdesc + "!!!";
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
           "data": {
             "facebook": {
               "text": finalresponse,
-              "quick_replies": [
-                {
+              "messages": [{
+                "type": 0,
+                "speech": finalresponse
+              }, {
+                "type": 2,
+                "title": "Any other queries?",
+                "replies": [{
                   "content_type": "text",
                   "title": "Place an incident",
                   "payload": "Place a new incident"
@@ -316,7 +321,8 @@ function commonServiceCall(req, res, type) {
                   "title": "Service Request",
                   "payload": "Service Request"
                 }
-              ]
+                ]
+              }]
             }
           }
         }));
