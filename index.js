@@ -191,13 +191,12 @@ function commonServiceCall(req, res, type) {
     if (type == 'generateSRId') {
       console.log(body);
       console.log('Incident ID: ' + body.result.number);
-      finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!!"
+      finalresponse = "Hi " + empid + ", your incident (Incident ID - " + body.result.number + ") has been created with the following details: Department - " + department + ", Location - " + location + ", Project - " + project + ", Category - " + category + ", Building - " + building + ", Description - " + desc + ". Thank you!! Any other queries?"
       res.setHeader('Content-Type', 'application/json');
       res.send(JSON.stringify({
         "data": {
           "facebook": {
             "text": finalresponse,
-            "text": "Any other queries?",
             "quick_replies": [
               {
                 "content_type": "text",
@@ -225,13 +224,12 @@ function commonServiceCall(req, res, type) {
         console.log(body.result);
         let category = body.result[0].category;
         let incidentdesc = body.result[0].short_description;
-        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!";
+        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!!! Any other queries?";
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
           "data": {
             "facebook": {
               "text": finalresponse,
-              "text": "Any other queries?",
               "quick_replies": [
                 {
                   "content_type": "text",
