@@ -95,33 +95,21 @@ app.post("/api", function (req, res) {
               ]
           },
           {
-            "type": 4,
-            "facebook": {
-              "attachment": {
-                "type": "template",
-                "payload": {
-                  "template_type": "button",
-                  "text": "What can I help you with?",
-                  "buttons": [
-                    {
-                      "type": "postback",
-                      "title": "Answer A",
-                      "payload": "A"
-                    },
-                    {
-                      "type": "postback",
-                      "title": "Answer B",
-                      "payload": "B"
-                    },
-                    {
-                      "type": "postback",
-                      "title": "Answer C",
-                      "payload": "C"
-                    }
-                  ]
-                }
+            "type": 1,
+            "platform": "facebook",
+            "title": "Service Assistance",
+            "subtitle": "Helps you with train and flight related services.",
+            "imageUrl": "https://cdn0.tnwcdn.com/wp-content/blogs.dir/1/files/2016/12/developing-chatbot-for-2017-benefits.jpg",
+            "buttons": [
+              {
+                "text": "Train Services",
+                "postback": "train service"
+              },
+              {
+                "text": "Flight Services",
+                "postback": "flight service"
               }
-            }
+            ]
           }
       ]
   }));
