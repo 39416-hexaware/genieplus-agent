@@ -38,88 +38,92 @@ app.post("/api", function (req, res) {
     generateSRId(req, res);
   }
   else if (req.body.result.action === 'input.incidentstatus') {
-    var FBResp = [], SlackResp = [],  richmsg = [{
-      "type": 0,
-      "speech": "PNR number is flushed"
-  }
-  ];
+    // var FBResp = [], SlackResp = [], richmsg = [{
+    //   "type": 0,
+    //   "speech": "PNR number is flushed"
+    // }
+    // ];
 
-    var FBcardTemplate = function() {
-      var title = null;
-      var image_url = null;
-      var subtitle = null;
-  };
+    // var FBcardTemplate = function () {
+    //   var title = null;
+    //   var image_url = null;
+    //   var subtitle = null;
+    // };
 
-  var SlackcardTemplate = function() {
-    var fallback = "Required plain-text summary of the attachment.";
-    color = "#36a64f";
-    var pretext = null;
-    var title = null;
-    var text = null;
-    var image_url = null;
-    var thumb_url = null;
-    var footer = null;
-    var footer_icon = "https://platform.slack-edge.com/img/default_application_icon.png";
-    var ts = 123456789;
-};
+    // var SlackcardTemplate = function () {
+    //   var fallback = "Required plain-text summary of the attachment.";
+    //   color = "#36a64f";
+    //   var pretext = null;
+    //   var title = null;
+    //   var text = null;
+    //   var image_url = null;
+    //   var thumb_url = null;
+    //   var footer = null;
+    //   var footer_icon = "https://platform.slack-edge.com/img/default_application_icon.png";
+    //   var ts = 123456789;
+    // };
 
-var CustomTemplate = function() {
-  var type = 1;
-  var title = null;
-  var image_url = null;
-  var subtitle = null;
-  var buttons = [{"type": "web_url",
-  "url": "URL",
-  "title": "View Website"}];
-}
+    // var CustomTemplate = function () {
+    //   var type = 1;
+    //   var title = null;
+    //   var image_url = null;
+    //   var subtitle = null;
+    //   var buttons = [{
+    //     "type": "web_url",
+    //     "url": "URL",
+    //     "title": "View Website"
+    //   }];
+    // }
 
-    for (let i = 0; i < 5; i++) {
-      // Facebook Carousel
-      // var objFBCard = new FBcardTemplate();
-      // objFBCard.title = "Test - " + i;
-      // objFBCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
-      // objFBCard.subtitle = `Train Number : `;
-      // FBResp.push(objFBCard);
+    // for (let i = 0; i < 5; i++) {
+    //   // Facebook Carousel
+    //   // var objFBCard = new FBcardTemplate();
+    //   // objFBCard.title = "Test - " + i;
+    //   // objFBCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+    //   // objFBCard.subtitle = `Train Number : `;
+    //   // FBResp.push(objFBCard);
 
-      // // Slack Carousel
-      // var objSlackCard = new SlackcardTemplate();
-      // objSlackCard.title = "Test - " + i;
-      // objSlackCard.text = `Train Number : `;
-      // objSlackCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
-      // objSlackCard.thumb_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
-      // objSlackCard.footer = 'Cancelled';
-      // SlackResp.push(objSlackCard);
+    //   // // Slack Carousel
+    //   // var objSlackCard = new SlackcardTemplate();
+    //   // objSlackCard.title = "Test - " + i;
+    //   // objSlackCard.text = `Train Number : `;
+    //   // objSlackCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+    //   // objSlackCard.thumb_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+    //   // objSlackCard.footer = 'Cancelled';
+    //   // SlackResp.push(objSlackCard);
 
-      var obj = new CustomTemplate();
-      obj.type = 1;
-      obj.title = 'Welcome to Peters Hats' + i;
-      obj.image_url =  'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
-      obj.subtitle = 'subtitle';
-      obj.buttons =  [{"type": "web_url",
-      "url": "URL",
-      "title": "View Website"}];
-      richmsg.push(JSON.parse(JSON.stringify(obj)));
-  }
+    //   var obj = new CustomTemplate();
+    //   obj.type = 1;
+    //   obj.title = 'Welcome to Peters Hats' + i;
+    //   obj.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+    //   obj.subtitle = 'subtitle';
+    //   obj.buttons = [{
+    //     "type": "web_url",
+    //     "url": "URL",
+    //     "title": "View Website"
+    //   }];
+    //   richmsg.push(JSON.parse(JSON.stringify(obj)));
+    // }
 
-  console.log(richmsg);
-  richmsg.push({
-    "type": 2,
-    "title": "Can I help you with anything else?",
-    "replies": [
-        "Train Services",
-        "Flight Services",
-        "Another query"
-    ]
-});
-console.log(richmsg);
-    // checkIncidentStatus(req, res);
-    res.send(JSON.stringify({
-      "speech": "",
-      "messages": richmsg
-  }));
+    // console.log(richmsg);
+    // richmsg.push({
+    //   "type": 2,
+    //   "title": "Can I help you with anything else?",
+    //   "replies": [
+    //     "Train Services",
+    //     "Flight Services",
+    //     "Another query"
+    //   ]
+    // });
+    // console.log(richmsg);
+    checkIncidentStatus(req, res);
+    // res.send(JSON.stringify({
+    //   "speech": "",
+    //   "messages": richmsg
+    // }));
   }
   else {
-    console.log('welcome');   
+    console.log('welcome');
   }
   // }
 });
@@ -219,7 +223,7 @@ function checkIncidentStatus(req, res) {
 
 function commonServiceCall(req, res, type) {
   var data = '', methodType = '', urlPath = '';
-  var empid= '', department = '', location = '', project = '', category = '', building = '', desc = '';
+  var empid = '', department = '', location = '', project = '', category = '', building = '', desc = '';
   var incidentId = '';
   if (type == 'generateSRId') {
     empid = req.body.result.contexts[0].parameters.empid;
@@ -230,14 +234,14 @@ function commonServiceCall(req, res, type) {
     building = req.body.result.contexts[0].parameters.building;
     desc = req.body.result.contexts[0].parameters.description;
 
-    methodType = 'POST';    
+    methodType = 'POST';
     urlPath = 'https://dev18442.service-now.com/api/now/table/incident';
     data = {
       "short_description": desc,
       "urgency": "2",
       "impact": "2",
       "caller_id": empid
-    };    
+    };
   }
   else {
     methodType = 'GET';
@@ -258,7 +262,7 @@ function commonServiceCall(req, res, type) {
       password: pwd
     }
   };
-  
+
   request(options, function (error, response, body) {
     if (error) {
       console.dir(error);
@@ -302,7 +306,7 @@ function commonServiceCall(req, res, type) {
         console.log(body.result);
         let category = body.result[0].category;
         let incidentdesc = body.result[0].short_description;
-        finalresponse = "Hi, your incidentId - " + incidentId +"  is placed as "+ category + ". And your description is - "+ incidentdesc +"!!! Any other queries?";
+        finalresponse = "Hi, your incidentId - " + incidentId + "  is placed as " + category + ". And your description is - " + incidentdesc + "!!! Any other queries?";
         res.setHeader('Content-Type', 'application/json');
         res.send(JSON.stringify({
           "data": {
