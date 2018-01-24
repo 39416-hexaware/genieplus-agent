@@ -86,23 +86,6 @@ app.post("/api", function (req, res) {
               "speech": "PNR number is flushed"
           },
           {
-            "data": {
-                "facebook": {
-                    "attachment": {
-                        "type": "template",
-                        "payload": {
-                            "template_type": "generic",
-                            "elements": FBResp
-                        }
-                    }
-                },
-                "slack": {
-                    "text": "",
-                    "attachments": SlackResp
-                }
-            }
-          },
-          {
               "type": 2,
               "title": "Can I help you with anything else?",
               "replies": [
@@ -111,7 +94,22 @@ app.post("/api", function (req, res) {
                   "Another query"
               ]
           }
-      ]
+      ],
+      "data": {
+        "facebook": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "generic",
+                    "elements": FBResp
+                }
+            }
+        },
+        "slack": {
+            "text": "",
+            "attachments": SlackResp
+        }
+    }
   }));
   }
   else {
