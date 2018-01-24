@@ -93,23 +93,37 @@ app.post("/api", function (req, res) {
                   "Flight Services",
                   "Another query"
               ]
-          }
-      ],
-      "data": {
-        "facebook": {
-            "attachment": {
+          },
+          {
+            "type": 4,
+            "facebook": {
+              "attachment": {
                 "type": "template",
                 "payload": {
-                    "template_type": "generic",
-                    "elements": FBResp
+                  "template_type": "button",
+                  "text": "What can I help you with?",
+                  "buttons": [
+                    {
+                      "type": "postback",
+                      "title": "Answer A",
+                      "payload": "A"
+                    },
+                    {
+                      "type": "postback",
+                      "title": "Answer B",
+                      "payload": "B"
+                    },
+                    {
+                      "type": "postback",
+                      "title": "Answer C",
+                      "payload": "C"
+                    }
+                  ]
                 }
+              }
             }
-        },
-        "slack": {
-            "text": "",
-            "attachments": SlackResp
-        }
-    }
+          }
+      ]
   }));
   }
   else {
