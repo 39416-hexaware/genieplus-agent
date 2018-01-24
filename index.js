@@ -94,7 +94,7 @@ var CustomTemplate = function() {
       obj.title = 'Welcome to Peters Hats' + i;
       obj.image_url =  'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
       obj.subtitle = 'subtitle';
-      richmsg.push(obj);
+      richmsg.push(JSON.stringify(obj));
   }
   richmsg.push({
     "type": 2,
