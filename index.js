@@ -105,7 +105,7 @@ var CustomTemplate = function() {
         "Another query"
     ]
 });
-
+console.log(richmsg);
     // checkIncidentStatus(req, res);
     res.send(JSON.stringify({
       "speech": "",
