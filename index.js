@@ -91,9 +91,13 @@ var CustomTemplate = function() {
       // SlackResp.push(objSlackCard);
 
       var obj = new CustomTemplate();
+      obj.type = 1;
       obj.title = 'Welcome to Peters Hats' + i;
       obj.image_url =  'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
       obj.subtitle = 'subtitle';
+      obj.buttons =  [{"type": "web_url",
+      "url": "URL",
+      "title": "View Website"}];
       richmsg.push(JSON.stringify(obj));
   }
   richmsg.push({
