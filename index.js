@@ -86,15 +86,6 @@ app.post("/api", function (req, res) {
               "speech": "PNR number is flushed"
           },
           {
-              "type": 2,
-              "title": "Can I help you with anything else?",
-              "replies": [
-                  "Train Services",
-                  "Flight Services",
-                  "Another query"
-              ]
-          },
-          {
             "type": 1,
             "platform": "facebook",
             "title": "Service Assistance",
@@ -110,7 +101,16 @@ app.post("/api", function (req, res) {
                 "postback": "flight service"
               }
             ]
-          }
+          },
+          {
+              "type": 2,
+              "title": "Can I help you with anything else?",
+              "replies": [
+                  "Train Services",
+                  "Flight Services",
+                  "Another query"
+              ]
+          }          
       ]
   }));
   }
