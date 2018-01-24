@@ -86,15 +86,6 @@ app.post("/api", function (req, res) {
               "speech": "PNR number is flushed"
           },
           {
-              "type": 2,
-              "title": "Can I help you with anything else?",
-              "replies": [
-                  "Train Services",
-                  "Flight Services",
-                  "Another query"
-              ]
-          },
-          {
             "type": 1,
             "title": "Welcome to Peters Hats",
             "image_url": "URL",
@@ -119,7 +110,17 @@ app.post("/api", function (req, res) {
                 "title": "View Website"
               }
             ]
-          }          
+          }
+          {
+              "type": 2,
+              "title": "Can I help you with anything else?",
+              "replies": [
+                  "Train Services",
+                  "Flight Services",
+                  "Another query"
+              ]
+          }
+                    
       ]
   }));
   }
