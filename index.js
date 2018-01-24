@@ -38,6 +38,45 @@ app.post("/api", function (req, res) {
     generateSRId(req, res);
   }
   else if (req.body.result.action === 'input.incidentstatus') {
+    var FBResp = [], SlackResp = [];
+
+    var FBcardTemplate = function() {
+      var title = null;
+      var image_url = null;
+      var subtitle = null;
+  };
+
+  var SlackcardTemplate = function() {
+    var fallback = "Required plain-text summary of the attachment.";
+    color = "#36a64f";
+    var pretext = null;
+    var title = null;
+    var text = null;
+    var image_url = null;
+    var thumb_url = null;
+    var footer = null;
+    var footer_icon = "https://platform.slack-edge.com/img/default_application_icon.png";
+    var ts = 123456789;
+};
+
+    for (let i = 0; i < 5; i++) {
+      // Facebook Carousel
+      var objFBCard = new FBcardTemplate();
+      objFBCard.title = "Test - " + i;
+      objFBCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+      objFBCard.subtitle = `Train Number : `;
+      FBResp.push(objFBCard);
+
+      // Slack Carousel
+      var objSlackCard = new SlackcardTemplate();
+      objSlackCard.title = "Test - " + i;
+      objSlackCard.text = `Train Number : `;
+      objSlackCard.image_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+      objSlackCard.thumb_url = 'https://www.bahn.com/en/view/mdb/pv/agenturservice/2011/mdb_22990_ice_3_schnellfahrstrecke_nuernberg_-_ingolstadt_1000x500_cp_0x144_1000x644.jpg';
+      objSlackCard.footer = 'Cancelled';
+      SlackResp.push(objSlackCard);
+  }
+
     // checkIncidentStatus(req, res);
     res.send(JSON.stringify({
       "speech": "",
@@ -45,6 +84,21 @@ app.post("/api", function (req, res) {
           {
               "type": 0,
               "speech": "PNR number is flushed"
+          },
+          {
+            "facebook": {
+                "attachment": {
+                    "type": "template",
+                    "payload": {
+                        "template_type": "generic",
+                        "elements": FBResp
+                    }
+                }
+            },
+            "slack": {
+                "text": "",
+                "attachments": SlackResp
+            }
           },
           {
               "type": 2,
