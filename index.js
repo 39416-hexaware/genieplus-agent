@@ -86,18 +86,20 @@ app.post("/api", function (req, res) {
               "speech": "PNR number is flushed"
           },
           {
-            "facebook": {
-                "attachment": {
-                    "type": "template",
-                    "payload": {
-                        "template_type": "generic",
-                        "elements": FBResp
+            "data": {
+                "facebook": {
+                    "attachment": {
+                        "type": "template",
+                        "payload": {
+                            "template_type": "generic",
+                            "elements": FBResp
+                        }
                     }
+                },
+                "slack": {
+                    "text": "",
+                    "attachments": SlackResp
                 }
-            },
-            "slack": {
-                "text": "",
-                "attachments": SlackResp
             }
           },
           {
