@@ -98,8 +98,10 @@ var CustomTemplate = function() {
       obj.buttons =  [{"type": "web_url",
       "url": "URL",
       "title": "View Website"}];
-      richmsg.push(JSON.parse(obj));
+      richmsg.push(JSON.parse(JSON.stringify(obj)));
   }
+
+  console.log(richmsg);
   richmsg.push({
     "type": 2,
     "title": "Can I help you with anything else?",
