@@ -38,7 +38,46 @@ app.post("/api", function (req, res) {
     generateSRId(req, res);
   }
   else if (req.body.result.action === 'input.incidentstatus') {
-    checkIncidentStatus(req, res);
+    // checkIncidentStatus(req, res);
+    res.send(JSON.stringify({
+      "data": {
+        "facebook": {
+          "text": "Chooseko a department:",
+          "quick_replies": [
+            {
+              "content_type": "text",
+              "title": "STG",
+              "payload": "STG"
+            },
+            {
+              "content_type": "text",
+              "title": "Facility/Engineering",
+              "payload": "Facility/Engineering"
+            },
+            {
+              "content_type": "text",
+              "title": "Finance",
+              "payload": "Finance"
+            },
+            {
+              "content_type": "text",
+              "title": "Hexavarsity",
+              "payload": "Hexavarsity"
+            },
+            {
+              "content_type": "text",
+              "title": "CRM",
+              "payload": "CRM"
+            },
+            {
+              "content_type": "text",
+              "title": "QMG",
+              "payload": "QMG"
+            }
+          ]
+        }
+      }
+    }));
   }
   else {
     console.log('welcome');   

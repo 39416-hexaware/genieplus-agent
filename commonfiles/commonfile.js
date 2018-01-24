@@ -17,15 +17,18 @@ module.exports.headerTemplate = function () {
 }
 // module.exports = ServiceNowApi;
 
-// class ServiceNowApi {
-//     short_description
-//     urgency
-//     impact
-//     caller_id
-//     constructor(objServiceNowApi) {
-//         this.short_description = objServiceNowApi.short_description == undefined ? "" : objServiceNowApi.short_description;
-//         urgency = objServiceNowApi.urgency == undefined ? "" : objServiceNowApi.urgency;
-//         impact = objServiceNowApi.impact == undefined ? "" : objServiceNowApi.impact;
-//         caller_id = objServiceNowApi.caller_id == undefined ? "" : objServiceNowApi.caller_id;
-//     }
-// }
+function ServiceNowApi() {
+    var short_description = null;
+    var urgency = null;
+    var impact = null;
+    var caller_id = null;
+    
+    // constructor(objServiceNowApi) {
+    //     this.short_description = objServiceNowApi.short_description == undefined ? "" : objServiceNowApi.short_description;
+    //     urgency = objServiceNowApi.urgency == undefined ? "" : objServiceNowApi.urgency;
+    //     impact = objServiceNowApi.impact == undefined ? "" : objServiceNowApi.impact;
+    //     caller_id = objServiceNowApi.caller_id == undefined ? "" : objServiceNowApi.caller_id;
+    // }
+}
+
+module.exports.ServiceNowApi = ServiceNowApi;
