@@ -110,7 +110,7 @@ app.post("/api", function (req, res) {
                 "title": "View Website"
               }
             ]
-          }
+          },
           {
               "type": 2,
               "title": "Can I help you with anything else?",
